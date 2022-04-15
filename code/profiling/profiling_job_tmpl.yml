@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 command: >
-  cd /profiling-service && python profile.py ${{inputs.payload}}
+  python -m online_endpoints_model_profiler ${{inputs.payload}}
 experiment_name: profiling-job
 display_name: <% SKU_CONNECTION_PAIR %>
 environment:
@@ -18,4 +18,5 @@ environment_variables:
 compute: "azureml:<% COMPUTE_NAME %>"
 inputs:
   payload:
-    file: azureml://datastores/workspaceblobstore/paths/profiling_payloads/<% ENDPOINT_NAME %>_payload.txt
+    type: uri_file
+    path: azureml://datastores/workspaceblobstore/paths/profiling_payloads/<% ENDPOINT_NAME %>_payload.txt
